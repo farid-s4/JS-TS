@@ -24,26 +24,20 @@ class Calculator {
     private currentInput = "";
     constructor(displayElement : HTMLInputElement) {
         this.display = displayElement;
-        this.update();
     }
     appendNumber(number : string) {
         this.currentInput += number;
-        this.update();
     }
     appendOperator(operator : string) {
         this.currentInput += operator;
-        this.update();
     }
     clearDisplay() {
         this.currentInput = "";
         this.display.value = "";
-        this.update();
     }
     calculateResult() {
         this.display.value = eval(this.currentInput);
-        this.update();
+
     }
-    private update() {
-        this.display.value = this.currentInput;
-    }
+
 }
