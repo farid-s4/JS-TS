@@ -1,15 +1,17 @@
 class CssObject {
-    constructor(selector) {
+    private selector : string;
+    private styles : {[key: string]: string };
+    constructor(selector : string) {
         this.selector = selector;
         this.styles = {};
     }
-    setSelector(selector) {
+    setSelector(selector :string) : void {
         this.selector = selector;
     }
-    setStyles(prop, value) {
+    setStyles(prop : string, value : string) : void {
         this.styles[prop] = value;
     }
-    removeStyles(styleName) {
+    removeStyles(styleName : string) : void {
         delete this.styles[styleName];
     }
     getCss(){
@@ -25,21 +27,27 @@ class CssObject {
 }
 
 class HTMLObj{
-    constructor(selector, autoClose, text) {
+    private selector: string;
+    private autoClose: boolean;
+    public text: string;
+    private attributes: { [key: string]: string };
+    private children: HTMLObj[];
+    private styles: CssObject;
+    constructor(selector : string, autoClose : boolean = false, text : string = "") {
         this.selector = selector;
         this.autoClose = autoClose;
         this.text = text;
         this.attributes = {};
         this.children = [];
-        this.styles = new CssObject();
+        this.styles = new CssObject("");
     }
-    setAttributes(prop, value) {
+    setAttributes(prop: string, value :string) : void {
         this.attributes[prop] = value;
     }
-    addToEndChildren(children) {
+    addToEndChildren(children : HTMLObj) : void {
         this.children.push(children);
     }
-    addChildrenToStart(children) {
+    addChildrenToStart(children : HTMLObj) : void {
         this.children.unshift(children);
     }
 
@@ -147,7 +155,8 @@ wrapper.addToEndChildren(block2);
 
 let styles = "<style>"
 styles += wrapStyle.getCss() + blockStyle.getCss() + textStyle.getCss() + imgStyle.getCss() + "</style>";
-
+console.log(styles);
+console.log(wrapper.getHTML());
 
 document.addEventListener("DOMContentLoaded", () => {
     document.write(styles);
